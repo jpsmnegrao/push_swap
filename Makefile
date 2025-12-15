@@ -1,5 +1,5 @@
 NAME = push_swap.a
-SOURCES = 
+SOURCES = push_swap.c ft_atoi.c ft_isdigit.c
 BONUS = 
 OBJS = $(SOURCES:.c=.o)
 BONUS_OBJS = $(BONUS:.c=.o)
@@ -30,4 +30,3 @@ re: fclean $(NAME)
 
 .PHONY:
 	all clean fclean re bonus
-	
