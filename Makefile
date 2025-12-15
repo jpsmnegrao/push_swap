@@ -1,4 +1,4 @@
-NAME = push_swap.a
+NAME = push_swap
 SOURCES = push_swap.c ft_atoi.c ft_isdigit.c
 BONUS = 
 OBJS = $(SOURCES:.c=.o)

@@ -6,9 +6,11 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 21:14:14 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/15 21:14:20 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:17:24 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int	ft_isdigit(int c)
 {

@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/15 21:14:36 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/15 22:46:56 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define PUSH_SWAP_H
 
 # include <stddef.h>
+# include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_stack
 {
@@ -40,7 +43,14 @@ typedef struct s_state
 // Sorting
 
 // Utilities
-int	ft_atoi(const char *str);
-int	ft_isdigit(int c);
+
+// 
+
+int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
+int		ft_checkduplicates(int *arr, int size);
+char	**ft_split(const char *s, char c);
+void	ft_free_split(char **arr);
+void	ft_error(void);
 
 #endif
