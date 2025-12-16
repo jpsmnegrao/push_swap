@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/15 22:46:56 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/16 18:17:36 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 typedef struct s_stack
 {
@@ -48,9 +49,14 @@ typedef struct s_state
 
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
-int		ft_checkduplicates(int *arr, int size);
+int		ft_check_dups(int *arr, int size);
 char	**ft_split(const char *s, char c);
 void	ft_free_split(char **arr);
 void	ft_error(void);
+int		ft_parse_input(int argc, char *argv[], t_stack *a, t_stack *b);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+size_t	ft_strlen(const char *str);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif

@@ -6,47 +6,59 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 22:30:58 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/15 22:54:18 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/16 18:17:57 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_parse_input(int argc, char *argv[], t_stack *a, t_stack *b)
+static char	**ft_get_input_list(int argc, char *argv[])
 {
-	int		i;
-	int		value;
 	char	**list;
 
-	i = 1;
+	if (argc > 2)
+		return (&argv[1]);
 	if (argc == 2)
 	{
 		list = ft_split(argv[1], ' ');
 		if (!list)
 			ft_error();
-		i = 0;
-		while (list[i])
-		{
-			value = ft_atoi(list[i]);
-			a->array[i] = value;
-			i++;
-		}
-		a->size = i;
-		ft_free_split(list);
+		return (list);
 	}
-	else if (argc > 2)
-	{
-		i = 1;
-		while (i < argc)
-		{
-			value = ft_atoi(argv[1]);
-			a->array[i - 1] = value;
-			i++;
-		}
-		a->size = argc - 1;
-	}
-	if (ft_checkduplicates(a->array, a->size))
+	if (argc <= 1)
 		ft_error();
+	return (NULL);
+}
+
+static void	ft_init_stack_a(t_stack *a, char **list)
+{
+	int	i;
+	int	size;
+
+	i = 0;
+	size = 0;
+	while (list[size])
+		size++;
+	a->size = size;
+	a->array = malloc(sizeof(int) * size);
+	while (i < size)
+	{
+		a->array[i] = ft_atoi(list[i]);
+		i++;
+	}
+	a->size = i;
+}
+
+int	ft_parse_input(int argc, char *argv[], t_stack *a, t_stack *b)
+{
+	char	**list;
+
+	list = ft_get_input_list(argc, argv);
+	ft_init_stack_a(a, list);
+	if (ft_check_dups(a->array, a->size))
+		ft_error();
+	if (argc == 2)
+		ft_free_split(list);
 	b->size = 0;
 	return (1);
 }
