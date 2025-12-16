@@ -1,34 +1,32 @@
 NAME = push_swap
-SOURCES = push_swap.c ft_atoi.c  ft_checkdups.c ft_error.c ft_free_split.c ft_isdigit.c \
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
+
+SOURCES = push_swap.c ft_atoi.c  ft_check_dups.c ft_error.c ft_free_split.c ft_isdigit.c \
 		ft_parse_input.c ft_split.c ft_strlcpy.c ft_memcpy.c ft_strlen.c ft_calloc.c
-BONUS = 
-DEBUG = debug_utils.c
 OBJS = $(SOURCES:.c=.o)
-BONUS_OBJS = $(BONUS:.c=.o)
 
-CFLAGS += -Wall -Wextra -Werror
-
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
-
-%.o: %.c
-	cc $(CFLAGS) -c $< -o $@
-
-bonus : .bonus
-
-.bonus: $(OBJS) $(BONUS_OBJS)
-	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
-	@touch .bonus
+DEBUG = debug_utils.c
+DEBUG_OBJS = $(DEBUG:.c=.o)
 
 all: $(NAME)
 
+$(NAME): $(OBJS) $(DEBUG_OBJS)
+	$(CC) $(OBJS) $(DEBUG_OBJS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS) .bonus
+	$(RM) $(OBJS) $(DEBUG_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
+	$(RM) push_swap
 
-re: fclean $(NAME)
+re: fclean all
 
 .PHONY:
-	all clean fclean re bonus
+	all clean fclean re
