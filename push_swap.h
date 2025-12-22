@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/16 18:35:27 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:36:22 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,43 @@ typedef struct s_state
 	int		move_count;	
 }	t_state;
 
-// Operations
+// PARSING AND INITIALIZATION
 
-// Validation
-
-// Sorting
-
-// Utilities
-
-// 
-
-int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
 int		ft_check_dups(int *arr, int size);
-char	**ft_split(const char *s, char c);
-void	ft_free_split(char **arr);
 void	ft_error(void);
 int		ft_parse_input(int argc, char *argv[], t_stack *a, t_stack *b);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-size_t	ft_strlen(const char *str);
+
+// UTILITIES
+
+int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
+void	ft_free_split(char **arr);
+int		ft_isdigit(int c);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	**ft_split(const char *s, char c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlen(const char *str);
+
+// INSTRUCTIONS
+
+/* op_push.c */
+void	pa(t_stack *a, t_stack *b, int print);
+void	pb(t_stack *a, t_stack *b, int print);
+
+/* op_rev_rotate.c */
+void	rra(t_stack *a, int print);
+void	rrb(t_stack *b, int print);
+void	rrr(t_stack *a, t_stack *b, int print);
+
+/* op_rotate.c */
+void	ra(t_stack *a, int print);
+void	rb(t_stack *b, int print);
+void	rr(t_stack *a, t_stack *b, int print);
+
+/* op_swap.c */
+void	sa(t_stack *a, int print);
+void	sb(t_stack *b, int print);
+void	ss(t_stack *a, t_stack *b, int print);
 
 // DEBUGGER
 
