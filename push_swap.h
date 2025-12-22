@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/22 19:36:22 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/22 21:11:14 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_state
 
 int		ft_check_dups(int *arr, int size);
 void	ft_error(void);
-int		ft_parse_input(int argc, char *argv[], t_stack *a, t_stack *b);
+int		ft_parse_input(int argc, char *argv[], t_state *state);
 
 // UTILITIES
 
@@ -57,26 +57,26 @@ size_t	ft_strlen(const char *str);
 // INSTRUCTIONS
 
 /* op_push.c */
-void	pa(t_stack *a, t_stack *b, int print);
-void	pb(t_stack *a, t_stack *b, int print);
+void	pa(t_state *state, int print);
+void	pb(t_state *state, int print);
 
 /* op_rev_rotate.c */
-void	rra(t_stack *a, int print);
-void	rrb(t_stack *b, int print);
-void	rrr(t_stack *a, t_stack *b, int print);
+void	rra(t_state *state, int print);
+void	rrb(t_state *state, int print);
+void	rrr(t_state *state, int print);
 
 /* op_rotate.c */
-void	ra(t_stack *a, int print);
-void	rb(t_stack *b, int print);
-void	rr(t_stack *a, t_stack *b, int print);
+void	ra(t_state *state, int print);
+void	rb(t_state *state, int print);
+void	rr(t_state *state, int print);
 
 /* op_swap.c */
-void	sa(t_stack *a, int print);
-void	sb(t_stack *b, int print);
-void	ss(t_stack *a, t_stack *b, int print);
+void	sa(t_state *state, int print);
+void	sb(t_state *state, int print);
+void	ss(t_state *state, int print);
 
 // DEBUGGER
 
-void	ft_print_stacks(t_stack *a, t_stack *b);
+void	ft_print_stacks(t_state *state);
 
 #endif

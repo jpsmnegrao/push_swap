@@ -6,11 +6,11 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 19:21:01 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/22 19:37:32 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/22 20:22:11 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pa(t_stack *a, t_stack *b, int print);
-void	pb(t_stack *a, t_stack *b, int print);
+void	pa(t_state *state, int print);
+void	pb(t_state *state, int print);

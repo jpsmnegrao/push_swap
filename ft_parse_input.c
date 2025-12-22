@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 22:30:58 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/16 18:17:57 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/22 21:07:15 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,20 @@ static void	ft_init_stack_a(t_stack *a, char **list)
 	a->size = i;
 }
 
-int	ft_parse_input(int argc, char *argv[], t_stack *a, t_stack *b)
+int	ft_parse_input(int argc, char *argv[], t_state *state)
 {
 	char	**list;
+	t_stack	*a;
+	t_stack	*b;
 
+	a = &state->a;
+	b = &state->b;
 	list = ft_get_input_list(argc, argv);
 	ft_init_stack_a(a, list);
+	state->b.size = 0;
+	state->b.array = malloc(sizeof(int) * state->a.size);
+	if (!state->b.array)
+		ft_error();
 	if (ft_check_dups(a->array, a->size))
 		ft_error();
 	if (argc == 2)

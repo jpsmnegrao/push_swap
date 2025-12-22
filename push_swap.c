@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:18:16 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/16 18:36:04 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/22 21:12:42 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,20 @@
 
 int	main(int argc, char *argv[])
 {
-	t_stack	a;
-	t_stack	b;
+	t_stack	*a;
+	t_stack	*b;
+	t_state state;
 
-	if (ft_parse_input(argc, argv, &a, &b) == 0)
+	a = state->a;
+	b = state->b;
+	if (ft_parse_input(argc, argv, &state) == 0)
 		ft_error();
-	ft_print_stacks(&a, &b);
+	ft_print_stacks(&state);
+	sa(&state, 1);
+	sb(&state, 1);
+	ft_print_stacks(&state);
+	ss(&state, 1);
+	ft_print_stacks(&state);
 	return (0);
 }
 
