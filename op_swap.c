@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 19:20:49 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/22 20:25:12 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 14:05:33 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sa(t_state *state, int print)
 
 	a = &state->a;
 	if (a->size < 2)
-		return (0);
+		return ;
 	else
 	{
 		tmp = a->array[0];
@@ -27,6 +27,8 @@ void	sa(t_state *state, int print)
 		a->array[1] = tmp;
 		state->move_count++;
 	}
+	if (print)
+		write(1, "sa\n", 3);
 }
 
 void	sb(t_state *state, int print)
@@ -36,7 +38,7 @@ void	sb(t_state *state, int print)
 
 	b = &state->b;
 	if (b->size < 2)
-		return (0);
+		return ;
 	else
 	{
 		tmp = b->array[0];
@@ -44,6 +46,8 @@ void	sb(t_state *state, int print)
 		b->array[1] = tmp;
 		state->move_count++;
 	}
+	if (print)
+		write(1, "sb\n", 3);
 }
 
 void	ss(t_state *state, int print)
@@ -56,7 +60,7 @@ void	ss(t_state *state, int print)
 	a = &state->a;
 	b = &state->b;
 	if (a->size < 2 || b->size < 2)
-		return (0);
+		return ;
 	else
 	{
 		tmpa = a->array[0];
@@ -67,4 +71,6 @@ void	ss(t_state *state, int print)
 		b->array[1] = tmpb;
 		state->move_count++;
 	}
+	if (print)
+		write(1, "ss\n", 3);
 }

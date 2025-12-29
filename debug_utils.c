@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 18:13:15 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/22 20:37:24 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 14:06:00 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_print_stacks(t_state *state)
 	b = &state->b;
 	i = 0;
 	if (!a->array || !b->array)
-		return (0);
+		return ;
 	if (a->size > b->size)
 		max_size = a->size;
 	else

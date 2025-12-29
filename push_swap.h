@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/22 21:11:14 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 15:55:48 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		ft_parse_input(int argc, char *argv[], t_state *state);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_free_split(char **arr);
+void	ft_free_state(t_state *state);
 int		ft_isdigit(int c);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	**ft_split(const char *s, char c);
@@ -76,7 +77,6 @@ void	sb(t_state *state, int print);
 void	ss(t_state *state, int print);
 
 // DEBUGGER
-
 void	ft_print_stacks(t_state *state);
 
 #endif
