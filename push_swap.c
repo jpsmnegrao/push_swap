@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:18:16 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 19:09:05 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 19:54:15 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int	main(int argc, char *argv[])
 	rb(&state, 1);
 	ft_print_stacks(&state);
 	rr(&state, 1);
+	ft_print_stacks(&state);
+	rra(&state, 1);
+	ft_print_stacks(&state);
+	rrb(&state, 1);
+	ft_print_stacks(&state);
+	rrr(&state, 1);
 	ft_print_stacks(&state);
 	ft_free_arrays(&state);
 	return (0);
