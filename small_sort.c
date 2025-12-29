@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 20:05:35 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 20:20:42 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:54:02 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,26 @@ void	sort_three(t_state *state)
 	}
 	else
 		sa(state, 1);
+}
+
+void	sort_five(t_state *state)
+{
+	int	min_idx;
+
+	while (state->a.size > 3)
+	{
+		min_idx = is_min_index(state);
+		while (min_idx != 0)
+		{
+			if (min_idx <= state->a.size / 2)
+				ra(state, 1);
+			else
+				rra(state, 1);
+			min_idx = is_min_index(state);
+		}
+		pb(state, 1);
+	}
+	sort_three(state);
+	while (state->b.size > 0)
+		pa(state, 1);
 }
