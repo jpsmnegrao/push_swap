@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 21:04:29 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 22:39:27 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	index_stack(t_state *state);
 /* Algorithm */
 void	sort_three(t_state *state);
 void	sort_five(t_state *state);
-void	sort_big(t_state *state);
+void	sort_larger(t_state *state);
 
 // DEBUGGER
 void	ft_print_stacks(t_state *state);

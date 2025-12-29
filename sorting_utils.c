@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 20:07:40 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 21:03:46 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 22:52:32 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,28 @@ int	is_min_index(t_state *state)
 void index_stack(t_state *state)
 {
 	int *tmp;
+	int i;
+	int j;
+	int swap;
+
+	tmp = (int *)malloc(sizeof(int) * state->a.size);
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (state->a.array[i])
+	{
+		tmp[i] = state->a.array[i];
+		i++;
+	}
+	i = 0;
+	while (i < state->a.size)
+	{
+		if (tmp[i] > tmp[i + 1])
+		{
+			swap = tmp[i];
+			tmp[i] = tmp[i + 1];
+			tmp[i + 1] = swap;
+		}
+		i++;
+	}
 }
