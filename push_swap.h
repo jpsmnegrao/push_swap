@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 18:53:20 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:19:18 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ void	rr(t_state *state, int print);
 void	sa(t_state *state, int print);
 void	sb(t_state *state, int print);
 void	ss(t_state *state, int print);
+
+// SORTING ALGORITHM
+
+/* Utilities */
+int		is_sorted(t_state *state);
+
+/* Algorithm */
+void		sort_three(t_state *state);
 
 // DEBUGGER
 void	ft_print_stacks(t_state *state);

@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 19:20:49 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 17:37:50 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:04:57 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	sb(t_state *state, int print)
 
 void	ss(t_state *state, int print)
 {
-	if (state->a.size < 2 && state->b.size < 2)
+	if (state->a.size < 2 || state->b.size < 2)
 		return ;
 	sa(state, 0);
 	sb(state, 0);

@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 19:21:14 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 18:11:50 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 20:04:40 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	rb(t_state *state, int print)
 
 void	rr(t_state *state, int print)
 {
-	if (state->a.size < 2 && state->b.size < 2)
+	if (state->a.size < 2 || state->b.size < 2)
 		return ;
 	ra(state, 0);
 	rb(state, 0);
