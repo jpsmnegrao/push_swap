@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 19:21:01 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 15:45:51 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 18:15:01 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,23 @@ void	pa(t_state *state, int print)
 
 	a = &state->a;
 	b = &state->b;
-	i = 0;
 	if (b->size == 0)
 		return ;
 	tmp = b->array[0];
-	while (i < b->size - 1)
-	{
+	i = -1;
+	while (++i < b->size - 1)
 		b->array[i] = b->array[i + 1];
-		i++;
-	}
 	b->size--;
 	i = a->size;
-	while (i > 0)
-	{
-		a->array[i] = a->array[i - 1];
-		i--;
-	}
+	while (i-- > 0)
+		a->array[i + 1] = a->array[i];
 	a->array[0] = tmp;
 	a->size++;
 	if (print)
+	{
+		state->move_count++;
 		write(1, "pa\n", 3);
+	}
 }
 
 void	pb(t_state *state, int print)
@@ -52,24 +49,21 @@ void	pb(t_state *state, int print)
 
 	a = &state->a;
 	b = &state->b;
-	i = 0;
 	if (a->size == 0)
 		return ;
 	tmp = a->array[0];
-	while (i < a->size - 1)
-	{
+	i = -1;
+	while (++i < a->size - 1)
 		a->array[i] = a->array[i + 1];
-		i++;
-	}
 	a->size--;
 	i = b->size;
-	while (i > 0)
-	{
-		b->array[i] = b->array[i - 1];
-		i--;
-	}
+	while (i-- > 0)
+		b->array[i + 1] = b->array[i];
 	b->array[0] = tmp;
 	b->size++;
 	if (print)
+	{
+		state->move_count++;
 		write(1, "pb\n", 3);
+	}
 }

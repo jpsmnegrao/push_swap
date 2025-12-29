@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:18:16 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 16:00:05 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 19:09:05 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char *argv[])
 	state.b.array = NULL;
 	if (ft_parse_input(argc, argv, &state) == 0)
 	{
-		ft_free_state(&state);
+		ft_free_arrays(&state);
 		ft_error();
 	}
 	ft_print_stacks(&state);
@@ -40,7 +40,13 @@ int	main(int argc, char *argv[])
 	ft_print_stacks(&state);
 	ss(&state, 1);
 	ft_print_stacks(&state);
-	ft_free_state(&state);
+	ra(&state, 1);
+	ft_print_stacks(&state);
+	rb(&state, 1);
+	ft_print_stacks(&state);
+	rr(&state, 1);
+	ft_print_stacks(&state);
+	ft_free_arrays(&state);
 	return (0);
 }
 

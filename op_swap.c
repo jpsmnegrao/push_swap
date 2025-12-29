@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 19:20:49 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 14:05:33 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:37:50 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ void	sa(t_state *state, int print)
 	a = &state->a;
 	if (a->size < 2)
 		return ;
-	else
-	{
-		tmp = a->array[0];
-		a->array[0] = a->array[1];
-		a->array[1] = tmp;
-		state->move_count++;
-	}
+	tmp = a->array[0];
+	a->array[0] = a->array[1];
+	a->array[1] = tmp;
 	if (print)
+	{
+		state->move_count++;
 		write(1, "sa\n", 3);
+	}
 }
 
 void	sb(t_state *state, int print)
@@ -39,38 +38,25 @@ void	sb(t_state *state, int print)
 	b = &state->b;
 	if (b->size < 2)
 		return ;
-	else
-	{
-		tmp = b->array[0];
-		b->array[0] = b->array[1];
-		b->array[1] = tmp;
-		state->move_count++;
-	}
+	tmp = b->array[0];
+	b->array[0] = b->array[1];
+	b->array[1] = tmp;
 	if (print)
+	{
+		state->move_count++;
 		write(1, "sb\n", 3);
+	}
 }
 
 void	ss(t_state *state, int print)
 {
-	t_stack	*a;
-	t_stack	*b;
-	int		tmpa;
-	int		tmpb;
-
-	a = &state->a;
-	b = &state->b;
-	if (a->size < 2 || b->size < 2)
+	if (state->a.size < 2 && state->b.size < 2)
 		return ;
-	else
-	{
-		tmpa = a->array[0];
-		tmpb = b->array[0];
-		a->array[0] = a->array[1];
-		b->array[0] = b->array[1];
-		a->array[1] = tmpa;
-		b->array[1] = tmpb;
-		state->move_count++;
-	}
+	sa(state, 0);
+	sb(state, 0);
 	if (print)
+	{
+		state->move_count++;
 		write(1, "ss\n", 3);
+	}
 }
