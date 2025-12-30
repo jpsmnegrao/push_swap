@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Colors
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 CYAN='\033[0;36m'
@@ -8,56 +7,78 @@ YELLOW='\033[0;33m'
 RESET='\033[0m'
 
 if [ ! -f "./push_swap" ]; then
-    echo -e "${RED}Error: push_swap executable not found. Run 'make' first!${RESET}"
+    echo -e "${RED}Error: push_swap not found.${RESET}"
     exit 1
 fi
 
 run_test() {
-    # 1. Run and capture all output (moves + debug info)
-    ./push_swap $1 > /tmp/ps_raw_out 2> /dev/null
-    RET=$?
-
-    # 2. Extract ONLY valid instructions and count them
-    # This ignores your "STACK A" labels and visualized numbers
-    MOVES_COUNT=$(grep -E '^(sa|sb|ss|pa|pb|ra|rb|rr|rra|rrb|rrr)$' /tmp/ps_raw_out | wc -l)
-
-    # 3. Run with Valgrind to check for leaks (exit 42 on error)
+    # Capture raw output (stdout and stderr)
+    RAW_OUT=$(./push_swap $1 2>&1)
+    
+    # Count valid instructions
+    MOVES_COUNT=$(echo "$RAW_OUT" | grep -E '^(sa|sb|ss|pa|pb|ra|rb|rr|rra|rrb|rrr)$' | wc -l)
+    
+    # Valgrind check
     valgrind --leak-check=full --error-exitcode=42 ./push_swap $1 > /dev/null 2>&1
     LEAK=$?
 
-    # Formatting the output
-    printf "Testing: [%-12s] " "$1"
+    # Prepare the output string (removing newlines) for error reporting
+    CLEAN_OUT=$(echo "$RAW_OUT" | tr '\n' ' ' | sed 's/  */ /g')
+
+    printf "Testing: [%s] " "$1"
     
     if [ $LEAK -eq 42 ]; then
-        echo -e "${RED}[LEAK]${RESET}"
-    elif [ $RET -ne 0 ] && [ "$2" != "error" ]; then
-        echo -e "${RED}[CRASH]${RESET}"
-    else
-        # Color coding the move counts based on project efficiency limits
-        if [ "$3" == "3" ] && [ $MOVES_COUNT -gt 3 ]; then
-            echo -e "${GREEN}[OK]${RESET} Moves: ${RED}$MOVES_COUNT (Limit 3!)${RESET}"
-        elif [ "$3" == "5" ] && [ $MOVES_COUNT -gt 12 ]; then
-            echo -e "${GREEN}[OK]${RESET} Moves: ${RED}$MOVES_COUNT (Limit 12!)${RESET}"
+        echo -e "${RED}[LEAK]${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+    elif [ "$2" == "error" ]; then
+        if [[ "$RAW_OUT" == "Error"* ]] && [ $MOVES_COUNT -eq 0 ]; then
+            # Still showing output here so you can confirm "Error" was printed
+            echo -e "${GREEN}[OK]${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
         else
-            echo -e "${GREEN}[OK]${RESET} Moves: ${CYAN}$MOVES_COUNT${RESET}"
+            echo -e "${RED}[FAIL]${RESET} (Expected 'Error') Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+        fi
+    elif [ "$2" == "sorted" ]; then
+        if [ $MOVES_COUNT -eq 0 ]; then
+            echo -e "${GREEN}[OK]${RESET} (Sorted: 0 moves)"
+        else
+            echo -e "${RED}[FAIL]${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+        fi
+    else
+        # Success check for 3, 4, and 5 moves - Now stays silent on the output
+        COLOR=$CYAN
+        if [[ "$3" == "3" && $MOVES_COUNT -gt 3 ]] || [[ "$3" == "5" && $MOVES_COUNT -gt 12 ]]; then
+            COLOR=$RED
+            echo -e "${GREEN}[OK]${RESET} Moves: ${COLOR}$MOVES_COUNT${RESET} ${RED}(LIMIT EXCEEDED)${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+        else
+            echo -e "${GREEN}[OK]${RESET} Moves: ${COLOR}$MOVES_COUNT${RESET}"
         fi
     fi
 }
 
-echo -e "${YELLOW}--- ERROR HANDLING ---${RESET}"
+echo -e "${YELLOW}--- INITIAL VALIDATION (Error Handling & Sorted) ---${RESET}"
 run_test '""' "error"
 run_test "1 2 2" "error"
 run_test "2147483648" "error"
+run_test "1 2 3 4 5" "sorted"
 
-echo -e "\n${YELLOW}--- STACK OF 3 (Limit: 3 moves) ---${RESET}"
-run_test "2 1 0" "valid" "3"
+echo -e "\n${YELLOW}--- STACK OF 3 ---${RESET}"
+echo -e "${CYAN}Max moves allowed: 3${RESET}"
 run_test "1 3 2" "valid" "3"
+run_test "2 1 3" "valid" "3"
+run_test "2 3 1" "valid" "3"
 run_test "3 1 2" "valid" "3"
+run_test "3 2 1" "valid" "3"
 
-echo -e "\n${YELLOW}--- STACK OF 5 (Limit: 12 moves) ---${RESET}"
-run_test "1 5 2 4 3" "valid" "5"
+echo -e "\n${YELLOW}--- STACK OF 4 ---${RESET}"
+echo -e "${CYAN}Max moves allowed: n/a (targeting < 12)${RESET}"
+run_test "4 3 2 1" "valid" "12"
+run_test "1 3 2 4" "valid" "12"
+run_test "4 1 2 3" "valid" "12"
+run_test "2 4 3 1" "valid" "12"
+
+echo -e "\n${YELLOW}--- STACK OF 5 ---${RESET}"
+echo -e "${CYAN}Max moves allowed: 12${RESET}"
 run_test "5 4 3 2 1" "valid" "5"
-run_test "2 3 5 1 4" "valid" "5"
-
-echo -e "\n${YELLOW}--- ALREADY SORTED ---${RESET}"
-run_test "1 2 3 4 5" "valid"
+run_test "1 5 2 4 3" "valid" "5"
+run_test "2 3 4 5 1" "valid" "5"
+run_test "5 1 2 3 4" "valid" "5"
+run_test "1 2 3 5 4" "valid" "5"
