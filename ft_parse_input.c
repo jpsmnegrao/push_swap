@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 22:30:58 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 18:55:32 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/30 16:03:35 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,21 @@ static int	ft_init_stacks(t_state *state, char **list)
 	error = 0;
 	while (list[size])
 		size++;
+	if (size == 0)
+		return (0);
 	state->a.size = size;
 	state->total_size = size;
 	state->a.array = malloc(sizeof(int) * size);
+	if (!state->a.array)
+		return (0);
 	state->b.size = 0;
 	state->b.array = malloc(sizeof(int) * size);
-	if (!state->a.array || !state->b.array)
+	if (!state->b.array)
+	{
+		free(state->a.array);
+		state->a.array = NULL;
 		return (0);
+	}
 	while (i < size)
 	{
 		state->a.array[i] = ft_atoi(list[i], &error);
@@ -78,10 +86,14 @@ int	ft_parse_input(int argc, char *argv[], t_state *state)
 	ft_init_state(state);
 	list = ft_get_input_list(argc, argv);
 	if (!list || !list[0])
+	{
+		if (argc == 2 && list)
+			ft_free_split(list);
 		return (0);
+	}
 	if (!ft_init_stacks(state, list))
 	{
-		if (argc == 2)
+		if (argc == 2 && list)
 			ft_free_split(list);
 		return (0);
 	}

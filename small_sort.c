@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 20:05:35 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 22:39:39 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/30 16:09:53 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	sort_five(t_state *state)
 		pa(state, 1);
 }
 
-void	sort_larger(t_state *state)
-{
-	
-}
+// void	sort_larger(t_state *state)
+// {
+// 	return ;
+// }
