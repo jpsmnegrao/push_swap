@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 20:07:40 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/30 16:09:39 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/30 20:44:24 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,16 @@ void	sort_temp_array(int size, int *tmp)
 	}
 }
 
-void	index_stack(t_state *state)
+int	index_stack(t_state *state)
 {
 	int	*tmp;
 
 	tmp = (int *)malloc(sizeof(int) * state->a.size);
 	if (!tmp)
-		return ;
+		return (0);
 	ft_memcpy(tmp, state->a.array, (sizeof(int) * state->a.size));
 	sort_temp_array(state->a.size, tmp);
 	apply_indexing(state, tmp);
 	free(tmp);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:18:16 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/30 16:19:02 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/30 20:53:39 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	main(int argc, char *argv[])
 {
 	t_state	state;
 
+	if (argc < 2)
+		return (0);
 	state.a.array = NULL;
 	state.b.array = NULL;
 	if (ft_parse_input(argc, argv, &state) == 0)
@@ -24,7 +26,11 @@ int	main(int argc, char *argv[])
 		ft_error();
 	}
 	ft_print_stacks(&state);
-	index_stack(&state);
+	if (index_stack(&state) == 0)
+	{
+		ft_free_arrays(&state);
+		ft_error();
+	}
 	if (is_sorted(&state))
 	{
 		ft_free_arrays(&state);

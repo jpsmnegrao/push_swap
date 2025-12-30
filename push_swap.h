@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/29 22:39:27 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/30 20:46:18 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void	ss(t_state *state, int print);
 /* Utilities */
 int		is_sorted(t_state *state);
 int		is_min_index(t_state *state);
-void	index_stack(t_state *state);
+void	apply_indexing(t_state *state, int *tmp);
+void	sort_temp_array(int size, int *tmp);
+int		index_stack(t_state *state);
 
 /* Algorithm */
 void	sort_three(t_state *state);
