@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/30 20:46:18 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/31 00:26:50 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,20 @@ void	ss(t_state *state, int print);
 
 // SORTING ALGORITHM
 
-/* Utilities */
+/* Algorithm utilities */
 int		is_sorted(t_state *state);
 int		is_min_index(t_state *state);
+int		get_max_pos(t_stack *b);
 void	apply_indexing(t_state *state, int *tmp);
 void	sort_temp_array(int size, int *tmp);
 int		index_stack(t_state *state);
+int		get_chunk_size(int n);
+void	push_to_b(t_state *state);
 
 /* Algorithm */
 void	sort_three(t_state *state);
 void	sort_five(t_state *state);
-void	sort_larger(t_state *state);
+void	sort_large(t_state *state);
 
 // DEBUGGER
 void	ft_print_stacks(t_state *state);

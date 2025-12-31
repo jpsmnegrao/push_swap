@@ -19,16 +19,23 @@ run_test() {
     valgrind --leak-check=full --error-exitcode=42 ./push_swap $1 > /dev/null 2>&1
     LEAK=$?
 
-    # Clean the output for display (removes extra newlines and trims)
+    # --- NEW LOGIC: Truncate display for large stacks ---
+    NUM_COUNT=$(echo $1 | wc -w)
+    if [ $NUM_COUNT -gt 10 ]; then
+        DISPLAY_INPUT="${NUM_COUNT} numbers"
+    else
+        DISPLAY_INPUT="$1"
+    fi
+    # ----------------------------------------------------
+
     CLEAN_OUT=$(echo "$RAW_OUT" | tr '\n' ' ' | xargs)
 
-    printf "Testing %-30s : [%s] " "($3)" "$1"
+    printf "Testing %-30s : [%s] " "($3)" "$DISPLAY_INPUT"
     
     if [ $LEAK -eq 42 ]; then
         echo -e "${RED}[LEAK]${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
     elif [ "$2" == "error" ]; then
         if [[ "$RAW_OUT" == "Error"* ]] && [ $MOVES_COUNT -eq 0 ]; then
-            # Re-added the Output display here for confirmation
             echo -e "${GREEN}[OK]${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
         else
             echo -e "${RED}[FAIL]${RESET} (Expected 'Error') Output: [${YELLOW}$CLEAN_OUT${RESET}]"
@@ -40,12 +47,11 @@ run_test() {
             echo -e "${RED}[FAIL]${RESET} (Should be 0 moves) Output: [${YELLOW}$CLEAN_OUT${RESET}]"
         fi
     else
-        # Success cases (valid input)
         COLOR=$CYAN
         if [[ -n "$4" ]]; then
-            if [[ "$4" == "3" && $MOVES_COUNT -gt 3 ]] || [[ "$4" == "12" && $MOVES_COUNT -gt 12 ]]; then
+            if [ $MOVES_COUNT -gt $4 ]; then
                 COLOR=$RED
-                echo -e "${RED}[FAIL]${RESET} Moves: $MOVES_COUNT (Limit $4) Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+                echo -e "${RED}[FAIL]${RESET} Moves: $MOVES_COUNT (Limit $4)"
                 return
             fi
         fi
@@ -93,3 +99,19 @@ run_test "1 5 2 4 3" "valid" "Stack of 5 mixed" "12"
 run_test "2 3 4 5 1" "valid" "Stack of 5 shift" "12"
 run_test "5 1 2 3 4" "valid" "Stack of 5 random" "12"
 run_test "1 2 3 5 4" "valid" "Stack of 5 small swap" "12"
+
+echo -e "\n${YELLOW}--- STACK OF 100 (Randomized) ---${RESET}"
+echo -e "${CYAN}Target limit: 700${RESET}"
+for i in {1..5}
+do
+    RANDOM_ARG=$(seq -1000 1000 | shuf -n 100 | tr '\n' ' ')
+    run_test "$RANDOM_ARG" "valid" "Random 100 batch $i" "700"
+done
+
+echo -e "\n${YELLOW}--- STACK OF 500 (Randomized) ---${RESET}"
+echo -e "${CYAN}Target limit: 5500${RESET}"
+for i in {1..3}
+do
+    RANDOM_ARG=$(seq -5000 5000 | shuf -n 500 | tr '\n' ' ')
+    run_test "$RANDOM_ARG" "valid" "Random 500 batch $i" "5500"
+done

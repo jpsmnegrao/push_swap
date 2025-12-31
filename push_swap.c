@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:18:16 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/30 20:53:39 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/31 00:28:47 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	main(int argc, char *argv[])
 		sort_three(&state);
 	else if (state.a.size <= 5)
 		sort_five(&state);
-	// else if (state.a.size > 5)
-	// 	sort_larger(&state);
+	else if (state.a.size > 5)
+		sort_large(&state);
 	ft_print_stacks(&state);
 	ft_free_arrays(&state);
 	return (0);
