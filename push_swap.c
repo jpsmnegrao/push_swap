@@ -6,11 +6,19 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:18:16 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/31 00:28:47 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/31 02:55:26 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	sort_remaining(t_state *state)
+{
+	if (state->a.size <= 5)
+		sort_five(state);
+	else
+		sort_large(state);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -20,13 +28,7 @@ int	main(int argc, char *argv[])
 		return (0);
 	state.a.array = NULL;
 	state.b.array = NULL;
-	if (ft_parse_input(argc, argv, &state) == 0)
-	{
-		ft_free_arrays(&state);
-		ft_error();
-	}
-	ft_print_stacks(&state);
-	if (index_stack(&state) == 0)
+	if (ft_parse_input(argc, argv, &state) == 0 || !index_stack(&state))
 	{
 		ft_free_arrays(&state);
 		ft_error();
@@ -40,11 +42,8 @@ int	main(int argc, char *argv[])
 		sa(&state, 1);
 	else if (state.a.size == 3)
 		sort_three(&state);
-	else if (state.a.size <= 5)
-		sort_five(&state);
-	else if (state.a.size > 5)
-		sort_large(&state);
-	ft_print_stacks(&state);
+	else
+		sort_remaining(&state);
 	ft_free_arrays(&state);
 	return (0);
 }

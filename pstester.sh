@@ -59,7 +59,7 @@ run_test() {
     fi
 }
 
-echo -e "${YELLOW}--- INITIAL VALIDATION (Error Handling & Sorted) ---${RESET}"
+echo -e "\n${YELLOW}--- INITIAL VALIDATION (Error Handling & Sorted) ---${RESET}"
 run_test '""' "error" "Empty string"
 run_test "1 2 2" "error" "Duplicate values"
 run_test "2147483648" "error" "Greater than INT_MAX"
