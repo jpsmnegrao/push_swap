@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 17:53:38 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/31 00:42:45 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2025/12/31 02:57:04 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	push_to_b(t_state *state)
 
 void	push_to_a(t_state *state)
 {
-	int pos;
+	int	pos;
 
 	pos = get_max_pos(&state->b);
 	while (state->b.size > 0)
