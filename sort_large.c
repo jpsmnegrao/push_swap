@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 17:53:38 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/31 02:57:04 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2026/01/07 20:44:53 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	get_chunk_size(int n)
 	if (n <= 50)
 		return (8);
 	if (n <= 100)
-		return (20);
+		return (16);
 	if (n <= 500)
-		return (35);
+		return (32);
 	return (45);
 }
 
@@ -35,7 +35,11 @@ void	push_to_b(t_state *state)
 		if (state->a.array[0] < i)
 		{
 			pb(state, 1);
-			rb(state, 1);
+			if (state->a.size > 1
+				&& state->a.array[0] > (i + range))
+				rr(state, 1);
+			else
+				rb(state, 1);
 			i++;
 		}
 		else if (state->a.array[0] <= i + range)

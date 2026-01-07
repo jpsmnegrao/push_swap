@@ -13,49 +13,58 @@ fi
 
 run_test() {
     # $1 = input, $2 = expected type, $3 = description, $4 = move limit (optional)
-    RAW_OUT=$(./push_swap $1 2>&1)
-    MOVES_COUNT=$(echo "$RAW_OUT" | grep -E '^(sa|sb|ss|pa|pb|ra|rb|rr|rra|rrb|rrr)$' | wc -l)
     
-    valgrind --leak-check=full --error-exitcode=42 ./push_swap $1 > /dev/null 2>&1
+    TMP_OUT=".tmp_push_swap_out"
+
+    # Run Valgrind once with all requested flags
+    valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes \
+             --error-exitcode=42 ./push_swap $1 > $TMP_OUT 2>&1
     LEAK=$?
 
-    # --- NEW LOGIC: Truncate display for large stacks ---
-    NUM_COUNT=$(echo $1 | wc -w)
-    if [ $NUM_COUNT -gt 10 ]; then
-        DISPLAY_INPUT="${NUM_COUNT} numbers"
-    else
-        DISPLAY_INPUT="$1"
-    fi
-    # ----------------------------------------------------
+    # Clean the output of any Valgrind-specific lines
+    RAW_OUT=$(grep -v "^==" $TMP_OUT)
+    rm -f $TMP_OUT
 
-    CLEAN_OUT=$(echo "$RAW_OUT" | tr '\n' ' ' | xargs)
+    # Extract move count based on project instructions
+    MOVES_COUNT=$(echo "$RAW_OUT" | grep -E '^(sa|sb|ss|pa|pb|ra|rb|rr|rra|rrb|rrr)$' | wc -l)
+    
+    # Truncate input display for readability
+    NUM_COUNT=$(echo $1 | wc -w)
+    [ $NUM_COUNT -gt 10 ] && DISPLAY_INPUT="${NUM_COUNT} numbers" || DISPLAY_INPUT="$1"
 
     printf "Testing %-30s : [%s] " "($3)" "$DISPLAY_INPUT"
     
+    # 1. Check for Memory Leaks
     if [ $LEAK -eq 42 ]; then
-        echo -e "${RED}[LEAK]${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+        echo -e "${RED}[LEAK]${RESET}"
+    
+    # 2. Check for expected Error cases
     elif [ "$2" == "error" ]; then
-        if [[ "$RAW_OUT" == "Error"* ]] && [ $MOVES_COUNT -eq 0 ]; then
-            echo -e "${GREEN}[OK]${RESET} Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+        if [[ "$RAW_OUT" == *"Error"* ]] && [ $MOVES_COUNT -eq 0 ]; then
+            echo -e "${GREEN}[OK] Triggered error as expected${RESET}"
         else
-            echo -e "${RED}[FAIL]${RESET} (Expected 'Error') Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+            echo -e "${RED}[FAIL]${RESET} (Did not trigger Error)"
         fi
+        
+    # 3. Check for already sorted cases
     elif [ "$2" == "sorted" ]; then
-        if [ $MOVES_COUNT -eq 0 ] && [[ "$RAW_OUT" != "Error"* ]]; then
-            echo -e "${GREEN}[OK]${RESET} (Sorted: 0 moves)"
+        if [ $MOVES_COUNT -eq 0 ] && [[ "$RAW_OUT" != *"Error"* ]]; then
+            echo -e "${GREEN}[OK] Sorted (0 moves)${RESET}"
         else
-            echo -e "${RED}[FAIL]${RESET} (Should be 0 moves) Output: [${YELLOW}$CLEAN_OUT${RESET}]"
+            echo -e "${RED}[FAIL]${RESET} (Should have done 0 moves)"
         fi
+        
+    # 4. Check move efficiency for valid sets
     else
-        COLOR=$CYAN
         if [[ -n "$4" ]]; then
-            if [ $MOVES_COUNT -gt $4 ]; then
-                COLOR=$RED
-                echo -e "${RED}[FAIL]${RESET} Moves: $MOVES_COUNT (Limit $4)"
-                return
+            if [ $MOVES_COUNT -le $4 ]; then
+                echo -e "${GREEN}[OK]${RESET} Moves: ${CYAN}$MOVES_COUNT${RESET} (Within limit $4)"
+            else
+                echo -e "${RED}[FAIL]${RESET} Moves: $MOVES_COUNT (Exceeded limit $4)"
             fi
+        else
+            echo -e "${GREEN}[OK]${RESET} Moves: ${CYAN}$MOVES_COUNT${RESET}"
         fi
-        echo -e "${GREEN}[OK]${RESET} Moves: ${COLOR}$MOVES_COUNT${RESET}"
     fi
 }
 

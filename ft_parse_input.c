@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 22:30:58 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/30 16:34:14 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2026/01/07 19:30:46 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ static void	ft_init_state(t_state *state)
 	state->a.size = 0;
 	state->b.size = 0;
 	state->total_size = 0;
-	state->current_chunk = 0;
-	state->chunk_size = 0;
-	state->flags = 0;
 	state->move_count = 0;
 }
 

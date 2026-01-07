@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:20:34 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/31 00:26:50 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2026/01/07 19:30:15 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_stack
 {
 	int	*array;
 	int	size;
-	int	capacity;
 }	t_stack;
 
 typedef struct s_state
@@ -31,9 +30,6 @@ typedef struct s_state
 	t_stack	a;
 	t_stack	b;
 	int		total_size;
-	int		current_chunk;
-	int		chunk_size;
-	int		flags;
 	int		move_count;	
 }	t_state;
 
@@ -92,8 +88,5 @@ void	push_to_b(t_state *state);
 void	sort_three(t_state *state);
 void	sort_five(t_state *state);
 void	sort_large(t_state *state);
-
-// DEBUGGER
-void	ft_print_stacks(t_state *state);
 
 #endif
