@@ -12,19 +12,16 @@ SOURCES = push_swap.c ft_atoi.c ft_calloc.c ft_check_dups.c ft_error.c \
 
 OBJS = $(SOURCES:.c=.o)
 
-DEBUG = debug_utils.c
-DEBUG_OBJS = $(DEBUG:.c=.o)
-
 all: $(NAME)
 
-$(NAME): $(OBJS) $(DEBUG_OBJS)
-	$(CC) $(OBJS) $(DEBUG_OBJS) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS) $(DEBUG_OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
@@ -33,5 +30,3 @@ re: fclean all
 
 .PHONY:
 	all clean fclean re
-
-# REMOVE DEBUG STUFF BEFORE SUBMISSION

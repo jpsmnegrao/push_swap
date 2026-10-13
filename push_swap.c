@@ -6,7 +6,7 @@
 /*   By: jpaim-so <jpaim-so@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:18:16 by jpaim-so          #+#    #+#             */
-/*   Updated: 2025/12/31 02:55:26 by jpaim-so         ###   ########.fr       */
+/*   Updated: 2026/10/13 21:37:46 by jpaim-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,3 @@ int	main(int argc, char *argv[])
 	ft_free_arrays(&state);
 	return (0);
 }
-
-// REMOVE FT_PRINT_STACKS BEFORE SUBMISSION
